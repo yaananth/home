@@ -1,0 +1,28 @@
+name: Publish Release Build2
+
+on:
+  push
+
+env:
+  BRANCH_REFERENCE: refs/heads/master
+  DEPLOY_USER: "ExtendedXmlSerializer's GitHub Action Automation Agent"
+  DEPLOY_EMAIL: "ExtendedXmlSerializer@users.noreply.github.com"
+  DEPLOY_COMMIT_MESSAGE: Generated CHANGELOG.md
+  DEPLOY_ACCOUNT: ExtendedXmlSerializer
+  DEPLOY_SLUG: extendedxmlserializer
+  DEPLOY_BRANCH: master
+
+jobs:
+  generate_and_save:
+    runs-on: ubuntu-latest
+    steps:
+    - id: generate
+      name: Generate CHANGELOG
+      uses: dragonspark/action-changelog-dawg@master
+      with:
+        access_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Upload CHANGELOG
+      uses: actions/upload-artifact@v1
+      with:
+        name: store
+        path: '${{ steps.generate.outputs.filename }}'
