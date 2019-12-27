@@ -14,7 +14,7 @@ env:
 
 jobs:
   generate_and_save:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - id: generate
       name: Generate CHANGELOG
